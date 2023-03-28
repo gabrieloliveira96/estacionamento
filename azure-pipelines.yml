@@ -1,0 +1,39 @@
+trigger:
+- main
+- prod
+- qa
+- dev
+- homolog
+
+pool: Tecon-01-Deploy
+  
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+  - task: UseDotNet@2 
+    displayName: ".NET Core 6.x"
+    inputs:
+      version: '6.x'
+      packageType: sdk
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      projects: '**/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+    displayName: '.NET Build'
+    
+  - task: DotNetCoreCLI@2
+    displayName: ".NET Publish"
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: false
+  
+  - task: PublishBuildArtifacts@1
+    displayName: "Upload Artifacts"
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+      artifactName: '$(Build.DefinitionName)'     
