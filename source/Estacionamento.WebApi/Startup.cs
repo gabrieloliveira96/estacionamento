@@ -1,10 +1,10 @@
-﻿using CSN.Inspecao.WebApi.Configurations;
-using CSN.Inspecao.WebApi.Middlewares;
+﻿using Estacionamento.WebApi.Configurations;
+using Estacionamento.WebApi.Middlewares;
 using MediatR;
 using Polly;
 using Polly.Extensions.Http;
 using System.Net.Http.Headers;
-namespace CSN.Inspecao.WebApi
+namespace Estacionament.WebApi
 {
     public class Startup
     {

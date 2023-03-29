@@ -9,7 +9,7 @@ using Estacionamento.Application.Commands.EntregaVeiculo;
 using Estacionamento.Domain.Interfaces.Repositories;
 using Estacionamento.Application.Commands.SaidaVeiculo;
 
-namespace CSN.Inspecao.WebApi.Configurations
+namespace Estacionamento.WebApi.Configurations
 {
     public static class DependencyInjection
     {

@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace CSN.Inspecao.WebApi.Configurations
+namespace Estacionamento.WebApi.Configurations
 {
     public class AuthorizeCheckOperationFilter : IOperationFilter
     {

@@ -1,4 +1,4 @@
-﻿namespace CSN.Inspecao.WebApi
+﻿namespace Estacionamento.WebApi
 {
     public class ApiConfiguration
     {

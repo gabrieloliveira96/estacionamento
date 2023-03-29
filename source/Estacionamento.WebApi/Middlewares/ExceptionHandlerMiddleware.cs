@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text.Json;
 
-namespace CSN.Inspecao.WebApi.Middlewares
+namespace Estacionamento.WebApi.Middlewares
 {
     public class ExceptionHandlerMiddleware
     {

@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "CSN.Inspecao.WebApi": {
+    "Estacionamento.WebApi": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

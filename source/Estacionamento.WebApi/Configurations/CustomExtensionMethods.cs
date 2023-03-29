@@ -1,5 +1,4 @@
-﻿using CSN.Inspecao.WebApi;
-using CSN.Inspecao.WebApi.Configurations;
+﻿
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
@@ -9,7 +8,7 @@ using Serilog.Exceptions;
 using Serilog.Filters;
 using Serilog.Formatting.Compact;
 
-namespace CSN.Inspecao.WebApi.Configurations
+namespace Estacionamento.WebApi.Configurations
 {
     public static class CustomExtensionMethods
     {

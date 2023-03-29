@@ -1,4 +1,4 @@
-﻿namespace CSN.Inspecao.WebApi.Configurations
+﻿namespace Estacionamento.WebApi.Configurations
 {
     public class AuthorizationConsts
     {

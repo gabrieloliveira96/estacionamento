@@ -1,6 +1,4 @@
-
-using CSN.Inspecao.WebApi;
-using CSN.Inspecao.WebApi.Configurations;
+using Estacionament.WebApi;
 using Serilog;
 
 try
