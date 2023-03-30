@@ -41,9 +41,9 @@ namespace Estacionamento.Application.Commands.EntregaVeiculo
         public class EntregaVeiculoCommandValidation : AbstractValidator<EntregaVeiculoCommand>
         {
             public const string MARCA_VEICULO_INVALIDA = "Marca Veículo Inválida";
-            public const string MODELO_VEICULO_INVALIDA = "Modelo Veículo Inválida";
+            public const string MODELO_VEICULO_INVALIDA = "Modelo Veículo Inválido";
             public const string COR_VEICULO_INVALIDA = "Cor Veículo Inválida";
-            public const string ANO_VEICULO_INVALIDA = "Ano Veículo Inválida";
+            public const string ANO_VEICULO_INVALIDA = "Ano Veículo Inválido";
             public const string PLACA_VEICULO_INVALIDA = "Placa Veículo Inválida";
 
             public EntregaVeiculoCommandValidation()
@@ -68,6 +68,8 @@ namespace Estacionamento.Application.Commands.EntregaVeiculo
                 RuleFor(c => c.VeiculoRequestDTO.Ano)
                     .NotNull()
                     .NotEmpty()
+                    .Length(1,4)
+                    .Matches("^[0-9]*$")
                     .WithMessage(ANO_VEICULO_INVALIDA);
 
 

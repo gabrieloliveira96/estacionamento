@@ -1,5 +1,4 @@
-﻿using Estacionamento.Domain.Custom;
-using Estacionamento.Domain.Data;
+﻿using Estacionamento.Domain.Data;
 using Estacionamento.Domain.Entities.Vagas;
 using Estacionamento.Domain.Enum;
 using System;
