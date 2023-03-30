@@ -1,5 +1,5 @@
 ﻿using Estacionamento.Domain.DomainObjetcs.Messsages;
-using Estacionamento.Domain.DTOs;
+using Estacionamento.Domain.DTOs.VeiculoDTO;
 using Estacionamento.Domain.Entities.Vagas;
 using Estacionamento.Domain.Entities.Veiculos;
 using FluentValidation;

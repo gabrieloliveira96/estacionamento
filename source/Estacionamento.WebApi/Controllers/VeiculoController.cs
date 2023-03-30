@@ -3,9 +3,10 @@ using Estacionamento.Domain.DomainObjetcs.Messsages.CommonMessages.Notifications
 using Estacionamento.Domain.Messsages.CommonMessages.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Estacionamento.Domain.DTOs;
 using Estacionamento.Application.Commands.EntregaVeiculo;
 using Estacionamento.Application.Commands.SaidaVeiculo;
+using Estacionamento.Domain.DTOs.VeiculoDTO;
+using Estacionamento.Domain.Interfaces.Queries;
 
 namespace Estacionamento.WebApi.Controllers
 {
@@ -15,13 +16,17 @@ namespace Estacionamento.WebApi.Controllers
     public class VeiculoController : ControllerBase
     {
         private readonly IMediator _mediatorHandler;
+        private readonly IVeiculosQuery _veiculosQuery;
+
 
         public VeiculoController(IMediator mediatorHandler,
                                INotificationHandler<DomainNotification> notifications,
                                INotificationHandler<DomainSuccesNotification> succesNotifications,
-                               IHttpContextAccessor httpContextAccessor) : base(notifications, succesNotifications, mediatorHandler, httpContextAccessor)
+                               IHttpContextAccessor httpContextAccessor,
+                               IVeiculosQuery veiculosQuery) : base(notifications, succesNotifications, mediatorHandler, httpContextAccessor)
         {
             _mediatorHandler = mediatorHandler;
+            _veiculosQuery = veiculosQuery;
         }
 
 
@@ -44,6 +49,12 @@ namespace Estacionamento.WebApi.Controllers
             await _mediatorHandler.Send(command);
 
             return Response();
+        }
+
+        [HttpGet("VeiculosEstacionados")]
+        public async Task<IActionResult> VeiculosEstacionados()
+        {
+            return Ok(await _veiculosQuery.VeiculosEstacionados());
         }
 
     }

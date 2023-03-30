@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Estacionamento.Domain.DTOs
+namespace Estacionamento.Domain.DTOs.VeiculoDTO
 {
     public class VeiculoRequestDTO
     {

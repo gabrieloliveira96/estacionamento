@@ -40,6 +40,7 @@ namespace Estacionament.WebApi
                 .AddNotifications()
                 .AddRepositories()
                 .AddCommands()
+                .AddQueries()
                 .RegisterServices(Configuration);
 
 
