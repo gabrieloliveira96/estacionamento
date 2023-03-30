@@ -2,6 +2,7 @@
 using Estacionamento.WebApi.Configurations;
 using Estacionamento.WebApi.Middlewares;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Polly;
 using Polly.Extensions.Http;
 using System.Net.Http.Headers;
@@ -31,6 +32,7 @@ namespace Estacionament.WebApi
             });
 
             services.AddControllers();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMediatR(typeof(Program));
 
@@ -51,11 +53,11 @@ namespace Estacionament.WebApi
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceCollection services)
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<EstacionamentoContext>();
-                context.Database.EnsureCreated();
-            }
+            //using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    var context = serviceScope.ServiceProvider.GetRequiredService<EstacionamentoContext>();
+            //    context.Database.EnsureCreated();
+            //}
             app.UseSwagger(Configuration);
             app.UseSwaggerUI();
             app.UseRouting();

@@ -1,14 +1,8 @@
 
 using Estacionamento.Domain.DomainObjetcs.Messsages.CommonMessages.Notifications;
 using Estacionamento.Domain.Messsages.CommonMessages.Notifications;
-
-
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Estacionamento.Domain.Messsages.CommonMessages.Notifications;
 using Estacionamento.Domain.DTOs;
 using Estacionamento.Application.Commands.EntregaVeiculo;
 using Estacionamento.Application.Commands.SaidaVeiculo;

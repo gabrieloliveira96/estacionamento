@@ -16,11 +16,7 @@ namespace Estacionamento.WebApi.Configurations
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<EstacionamentoContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-
-
-            services.ConfigureAudit(configuration);
+                options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<EstacionamentoContext>();
 
