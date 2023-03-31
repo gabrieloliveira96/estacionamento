@@ -87,7 +87,7 @@ namespace Estacionamento.Application.Commands.SaidaVeiculo
         {
             var veiculo = _repositoryRegistroVeiculo.Get(v=>v.Placa == placa && v.DataSaida == null).Where(v=>v.Placa == placa && v.DataSaida == null).ToList();
 
-            if (veiculo is null)
+            if (veiculo.Count == 0)
                 return null;
 
             return veiculo;

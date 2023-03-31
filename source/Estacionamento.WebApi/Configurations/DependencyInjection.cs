@@ -10,7 +10,7 @@ using Estacionamento.Domain.Interfaces.Repositories;
 using Estacionamento.Application.Commands.SaidaVeiculo;
 using Estacionamento.Domain.Interfaces.Queries;
 using Estacionamento.Application.Queries.Vagas;
-using Estacionamento.Application.Queries.Veiculos;
+using Estacionamento.Application.Queries.RegistroVeiculos;
 
 namespace Estacionamento.WebApi.Configurations
 {
@@ -55,7 +55,7 @@ namespace Estacionamento.WebApi.Configurations
         public static IServiceCollection AddQueries(this IServiceCollection services)
         {
             services.AddScoped<IVagasQuery, VagasQuery>();
-            services.AddScoped<IVeiculosQuery, VeiculosQuery>();
+            services.AddScoped<IRegistroVeiculosQuery, RegistroVeiculosQuery>();
             return services;
         }
     }

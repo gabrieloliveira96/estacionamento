@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Estacionamento.Application.Queries.Base
 {
@@ -38,6 +40,7 @@ namespace Estacionamento.Application.Queries.Base
                     stopWatch.Restart();
 
                     logger.LogInformation("Iniciando consulta: {query}", query);
+
 
                     IEnumerable<dynamic> dados = connect.Query<dynamic>(t.Key, t.Value);
 

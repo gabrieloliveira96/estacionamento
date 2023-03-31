@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Estacionamento.Domain.DTOs.VeiculoDTO
+namespace Estacionamento.Domain.DTOs.RegistroVeiculoDTO
 {
     public class VeiculosVagaDTO
     {

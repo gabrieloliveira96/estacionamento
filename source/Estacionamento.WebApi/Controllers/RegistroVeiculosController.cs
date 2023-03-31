@@ -5,25 +5,26 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Estacionamento.Application.Commands.EntregaVeiculo;
 using Estacionamento.Application.Commands.SaidaVeiculo;
-using Estacionamento.Domain.DTOs.VeiculoDTO;
 using Estacionamento.Domain.Interfaces.Queries;
+using Estacionamento.Domain.DTOs.VagaDTO;
+using Estacionamento.Domain.DTOs.RegistroVeiculoDTO;
 
 namespace Estacionamento.WebApi.Controllers
 {
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class VeiculoController : ControllerBase
+    public class RegistroVeiculosController : ControllerBase
     {
         private readonly IMediator _mediatorHandler;
-        private readonly IVeiculosQuery _veiculosQuery;
+        private readonly IRegistroVeiculosQuery _veiculosQuery;
 
 
-        public VeiculoController(IMediator mediatorHandler,
+        public RegistroVeiculosController(IMediator mediatorHandler,
                                INotificationHandler<DomainNotification> notifications,
                                INotificationHandler<DomainSuccesNotification> succesNotifications,
                                IHttpContextAccessor httpContextAccessor,
-                               IVeiculosQuery veiculosQuery) : base(notifications, succesNotifications, mediatorHandler, httpContextAccessor)
+                               IRegistroVeiculosQuery veiculosQuery) : base(notifications, succesNotifications, mediatorHandler, httpContextAccessor)
         {
             _mediatorHandler = mediatorHandler;
             _veiculosQuery = veiculosQuery;
@@ -57,5 +58,10 @@ namespace Estacionamento.WebApi.Controllers
             return Ok(await _veiculosQuery.VeiculosEstacionados());
         }
 
+        [HttpGet("RegistroGeral")]
+        public async Task<IActionResult> RegistroGeral()
+        {
+            return Ok(await _veiculosQuery.RegistrosGerais());
+        }
     }
 }

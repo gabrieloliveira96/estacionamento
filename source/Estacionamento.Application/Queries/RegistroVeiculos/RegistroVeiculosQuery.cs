@@ -16,28 +16,62 @@ using Estacionamento.Domain.Entities.Vagas;
 using Microsoft.Data.Sqlite;
 using Estacionamento.Domain.DTOs.VagaDTO;
 using Estacionamento.Domain.Enum;
-using Estacionamento.Domain.DTOs.VeiculoDTO;
+using Estacionamento.Domain.DTOs.RegistroVeiculoDTO;
 
-namespace Estacionamento.Application.Queries.Veiculos
+namespace Estacionamento.Application.Queries.RegistroVeiculos
 {
-    public class VeiculosQuery : IVeiculosQuery
+    public class RegistroVeiculosQuery : IRegistroVeiculosQuery
     {
         private readonly IConfiguration _config;
-        private readonly ILogger<VeiculosQuery> _logger;
+        private readonly ILogger<RegistroVeiculosQuery> _logger;
         private readonly IMediator _mediator;
 
-        public VeiculosQuery(IConfiguration config, ILogger<VeiculosQuery> logger, IMediator mediator)
+        public RegistroVeiculosQuery(IConfiguration config, ILogger<RegistroVeiculosQuery> logger, IMediator mediator)
         {
             _config = config;
             _logger = logger;
             _mediator = mediator;
         }
 
-        public IDbConnection Connection
+        public SqliteConnection Connection
         {
             get
             {
                 return new SqliteConnection(_config.GetConnectionString("DefaultConnection"));
+            }
+        }
+
+        public async Task<List<RegistrosGeraisDTO>> RegistrosGerais()
+        {
+            try
+            {
+                using (IDbConnection connection = Connection)
+                {
+                    string sql = @"SELECT
+                                   TR.Marca AS MARCA,
+                                   TR.Modelo AS Modelo,
+                                   TR.Cor AS Cor,
+                                   TR.Ano AS Ano,
+                                   TR.Placa AS Placa,
+                                   TR.TipoVeiculo AS TipoVeiculo,
+                                   VAGA.NumeroVaga AS NumeroVaga,
+                                   TR.DataEntrada AS DataEntrada,
+                                   TR.DataSaida AS DataSaida
+                                  FROM T_REGISTRO_VEICULO TR
+                                  LEFT JOIN T_VAGA VAGA ON VAGA.id = TR.VagaId";
+
+
+                    var query = new Dictionary<string, object>() { { sql, new {  } } };
+
+                    var result = connection.PesquisarSlapper<RegistrosGeraisDTO, RegistroVeiculosQuery>(query, _logger);
+
+                    return result.ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
             }
         }
 
@@ -62,7 +96,7 @@ namespace Estacionamento.Application.Queries.Veiculos
 
                     var query = new Dictionary<string, object>() { { sql, new { } } };
 
-                    var result = connection.PesquisarSlapper<VeiculosVagaDTO, VeiculosQuery>(query, _logger);
+                    var result = connection.PesquisarSlapper<VeiculosVagaDTO, RegistroVeiculosQuery>(query, _logger);
 
                     return result.ToList();
 
