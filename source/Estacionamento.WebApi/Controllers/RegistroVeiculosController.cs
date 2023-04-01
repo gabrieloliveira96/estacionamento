@@ -63,5 +63,11 @@ namespace Estacionamento.WebApi.Controllers
         {
             return Ok(await _veiculosQuery.RegistrosGerais());
         }
+
+        [HttpGet("Pesquisa")]
+        public async Task<IActionResult> Pesquisa([FromQuery] FiltroRegistrosRequestDTO filtro)
+        {
+            return Ok(await _veiculosQuery.FiltroRegistrosVeiculos(filtro));
+        }
     }
 }

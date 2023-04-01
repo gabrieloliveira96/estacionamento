@@ -14,5 +14,8 @@ namespace Estacionamento.Domain.Interfaces.Queries
 
         Task<List<RegistrosGeraisDTO>> RegistrosGerais();
 
+        Task<List<FiltroRegistrosResponseDTO>> FiltroRegistrosVeiculos(FiltroRegistrosRequestDTO filtro);
+
+
     }
 }
