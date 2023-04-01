@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 using Estacionamento.Domain.Interfaces.Queries;
+using Estacionamento.Domain.DTOs.VagaDTO;
 
 namespace Estacionamento.WebApi.Controllers
 {
@@ -61,6 +62,11 @@ namespace Estacionamento.WebApi.Controllers
         public async Task<IActionResult> Grande()
         {
             return Ok(await _vagaQuery.VagasGrande());
+        }
+        [HttpGet("Pesquisa")]
+        public async Task<IActionResult> Pesquisa([FromQuery] FiltroVagasRequestDTO filtro)
+        {
+            return Ok(await _vagaQuery.FiltroVagas(filtro));
         }
     }
 }

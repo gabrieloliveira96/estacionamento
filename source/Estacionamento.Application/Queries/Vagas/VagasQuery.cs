@@ -16,6 +16,8 @@ using Estacionamento.Domain.Entities.Vagas;
 using Microsoft.Data.Sqlite;
 using Estacionamento.Domain.DTOs.VagaDTO;
 using Estacionamento.Domain.Enum;
+using Estacionamento.Domain.DTOs.RegistroVeiculoDTO;
+using Estacionamento.Application.Queries.RegistroVeiculos;
 
 namespace Estacionamento.Application.Queries.Vagas
 {
@@ -191,5 +193,90 @@ namespace Estacionamento.Application.Queries.Vagas
                 throw;
             }
         }
+
+        public async Task<List<FiltroVagasResponseDTO>> FiltroVagas(FiltroVagasRequestDTO filtro)
+        {
+            try
+            {
+                using (IDbConnection connection = Connection)
+                {
+                    string sql = @"SELECT
+                                   TR.Marca AS Veiculos_Marca,
+                                   TR.Modelo AS  Veiculos_Modelo,
+                                   TR.Cor AS  Veiculos_Cor,
+                                   TR.Ano AS  Veiculos_Ano,
+                                   TR.Placa AS  Veiculos_Placa,
+                                   TR.TipoVeiculo AS  Veiculos_TipoVeiculo,
+                                   TR.DataEntrada AS  Veiculos_DataEntrada,
+                                   TR.DataSaida AS  Veiculos_DataSaida,
+                                   V.NumeroVaga AS NumeroVaga,
+                                   V.TipoVaga AS TipoVaga,
+                                   V.Ocupada AS Ocupada
+                                  FROM T_VAGA V
+                                  LEFT JOIN T_REGISTRO_VEICULO TR ON V.id = TR.VagaId" + QueryBuilderWhere(filtro);
+
+
+                    var query = new Dictionary<string, object>() { { sql, new { } } };
+
+                    var result = connection.PesquisarSlapper<FiltroVagasResponseDTO, VagasQuery>(query, _logger);
+
+                    return result.ToList();
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        StringBuilder QueryBuilderWhere(FiltroVagasRequestDTO obj)
+        {
+            StringBuilder resultBuilder = new(" WHERE ");
+            string[] query = CheckParams(obj);
+
+            if (!query.Any())
+            {
+                return new StringBuilder("");
+            }
+
+            resultBuilder.Append(string.Join(" AND ", query));
+            return resultBuilder;
+        }
+        string[] CheckParams(FiltroVagasRequestDTO obj)
+        {
+            IList<string> paramlist = new List<string>();
+
+            if (obj.NumeroVaga != null)
+                paramlist.Add("V.NumeroVaga LIKE '%" + obj.NumeroVaga + "%'");
+
+            if (obj.Ocupada != null)
+                paramlist.Add("V.Ocupada = " + obj.Ocupada + "");
+
+            if (obj.TipoVaga != null)
+            {
+                switch (obj.TipoVaga)
+                {
+                    case TipoVagaEnum.Pequena:
+                        paramlist.Add("V.TipoVaga = '" + TipoVagaEnum.Pequena + "'");
+                        break;
+                    case TipoVagaEnum.Media:
+                        paramlist.Add("V.TipoVaga = '" + TipoVagaEnum.Media + "'");
+                        break;
+                    case TipoVagaEnum.Grande:
+                        paramlist.Add("V.TipoVaga = '" + TipoVagaEnum.Grande + "'");
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (obj.PeriodoInicial != null && obj.PeriodoFinal != null)
+                paramlist.Add(" strftime('%d/%m/%Y',TR.DataEntrada) BETWEEN '" + obj.PeriodoInicial + "' AND '" + obj.PeriodoFinal + "'");
+
+
+            return paramlist.ToArray();
+        }
+
+
     }
 }

@@ -16,5 +16,8 @@ namespace Estacionamento.Domain.Interfaces.Queries
         Task<List<VagasDTO>> VagasMedia();
         Task<List<VagasDTO>> VagasGrande();
 
+        Task<List<FiltroVagasResponseDTO>> FiltroVagas(FiltroVagasRequestDTO filtro);
+
+
     }
 }
